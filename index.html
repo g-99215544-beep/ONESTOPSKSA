@@ -33,12 +33,17 @@
 <body>
     <div id="root"></div>
     <script>
-      // UNREGISTER SERVICE WORKER (Fix 404/Cache Issues)
+      // KILL SWITCH: Remove any existing Service Workers immediately
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for(let registration of registrations) {
-            registration.unregister().then(function(boolean) {
-              console.log('ServiceWorker unregistered: ', boolean);
+          if (registrations.length > 0) {
+            console.log('Found ' + registrations.length + ' service workers. Unregistering...');
+            let unregisterPromises = registrations.map(r => r.unregister());
+            
+            Promise.all(unregisterPromises).then(() => {
+              console.log('All service workers unregistered. Reloading page...');
+              // Force reload from server to clear cache
+              window.location.reload();
             });
           }
         });
