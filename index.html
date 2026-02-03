@@ -29,22 +29,20 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body>
     <div id="root"></div>
     <script>
+      // UNREGISTER SERVICE WORKER (Fix 404/Cache Issues)
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js')
-            .then((registration) => {
-              console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }, (err) => {
-              console.log('ServiceWorker registration failed: ', err);
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister().then(function(boolean) {
+              console.log('ServiceWorker unregistered: ', boolean);
             });
+          }
         });
       }
     </script>
-<script type="module" src="/index.tsx"></script>
 </body>
 </html>
