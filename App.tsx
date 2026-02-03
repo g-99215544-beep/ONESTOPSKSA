@@ -202,9 +202,9 @@ function App() {
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 md:py-8">
         
         {/* Compact Header */}
-        <header className="flex flex-col md:flex-row justify-between items-center mb-6 pt-2 gap-4">
-          <div className="w-full md:w-auto">
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-none uppercase">
+        <header className="flex flex-row justify-between items-center mb-6 pt-2">
+          <div>
+            <h1 className="text-xl md:text-3xl font-extrabold text-white tracking-tight leading-none uppercase">
               SRI AMAN Apps
             </h1>
             <p className="text-zinc-400 text-sm hidden md:block mt-1">
@@ -212,39 +212,39 @@ function App() {
             </p>
           </div>
 
-          <div className="flex gap-2 w-full md:w-auto justify-end">
+          <div className="flex gap-2 items-center">
             
             {/* PWA Install Button - Only shows if installable */}
             {installPrompt && (
               <button
                 onClick={handleInstallClick}
-                className="px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white transition-all flex items-center gap-2 text-xs md:text-sm font-semibold shadow-lg shadow-emerald-900/30 animate-[pulse_3s_infinite]"
+                className="px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white transition-all flex items-center gap-2 text-[10px] md:text-sm font-semibold shadow-lg shadow-emerald-900/30 animate-[pulse_3s_infinite]"
               >
-                <Download size={16} />
-                <span className="hidden sm:inline">Install App</span>
+                <Download size={14} className="md:w-4 md:h-4" />
+                <span className="hidden sm:inline">Install</span>
               </button>
             )}
 
             {isAdmin && (
                <button
                  onClick={handleAddNew}
-                 className="px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white transition-all flex items-center gap-2 text-xs md:text-sm font-semibold shadow-lg shadow-blue-900/30"
+                 className="px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white transition-all flex items-center gap-2 text-[10px] md:text-sm font-semibold shadow-lg shadow-blue-900/30"
                >
-                 <Plus size={16} />
+                 <Plus size={14} className="md:w-4 md:h-4" />
                  <span className="hidden sm:inline">Tambah App</span>
                </button>
             )}
 
             <button
               onClick={() => isAdmin ? setIsAdmin(false) : setIsLoginOpen(true)}
-              className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full border transition-all flex items-center gap-2 text-xs md:text-sm font-semibold shadow-sm ${
+              className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full border transition-all flex items-center gap-2 text-[10px] md:text-sm font-semibold shadow-sm ${
                 isAdmin
                   ? 'bg-zinc-900 border-zinc-700 text-red-400 hover:bg-zinc-800 hover:text-red-300'
                   : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:bg-zinc-800 hover:text-white'
               }`}
             >
-              {isAdmin ? <LogOut size={16} /> : <Settings size={16} />}
-              <span className="hidden sm:inline">{isAdmin ? 'Log Keluar' : 'Admin'}</span>
+              {isAdmin ? <LogOut size={14} className="md:w-4 md:h-4" /> : <Settings size={14} className="md:w-4 md:h-4" />}
+              <span className="hidden sm:inline">{isAdmin ? 'Keluar' : 'Admin'}</span>
             </button>
           </div>
         </header>
@@ -382,7 +382,7 @@ function App() {
           <>
             {/* GRID VIEW */}
             {viewMode === 'grid' && (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 md:gap-6">
                 {processedApps.map(app => {
                   const catData = getCategoryData(app.category);
                   const isHidden = hiddenAppIds.includes(app.id);
@@ -396,7 +396,7 @@ function App() {
                       onDragOver={handleDragOver}
                       onDrop={(e) => handleDrop(e, app.id)}
                       onClick={() => handleAppClick(app)}
-                      className={`group relative bg-zinc-900 rounded-xl border border-zinc-800 p-4 md:p-6 flex flex-col items-center text-center transition-all active:scale-95
+                      className={`group relative bg-zinc-900 rounded-xl border border-zinc-800 p-2 md:p-6 flex flex-col items-center text-center transition-all active:scale-95
                         ${canDrag ? 'cursor-move' : 'cursor-pointer'}
                         ${isHidden ? 'opacity-50 grayscale hover:opacity-100 hover:grayscale-0' : 'hover:border-blue-800 hover:shadow-lg hover:shadow-black/50'}
                       `}
@@ -405,48 +405,48 @@ function App() {
                       {!isAdmin && (
                         <button
                           onClick={(e) => toggleHideApp(e, app.id)}
-                          className={`absolute top-2 left-2 p-1.5 rounded-full z-10 transition-colors
+                          className={`absolute top-1 left-1 p-1 rounded-full z-10 transition-colors
                             ${isHidden 
                               ? 'bg-blue-900/50 text-blue-400 hover:bg-blue-900' 
                               : 'text-zinc-600 hover:text-white bg-black/20 hover:bg-black opacity-0 group-hover:opacity-100'
                             }`}
                             title={isHidden ? "Papar Semula" : "Sembunyi App"}
                         >
-                          {isHidden ? <Eye size={14} /> : <EyeOff size={14} />}
+                          {isHidden ? <Eye size={12} /> : <EyeOff size={12} />}
                         </button>
                       )}
 
                       {/* Admin Controls (Top Right) */}
                       {isAdmin && (
-                        <div className="absolute top-2 right-2 flex gap-1 z-10">
+                        <div className="absolute top-1 right-1 flex gap-1 z-10">
                           <button
                             onClick={(e) => handleEdit(e, app)}
-                            className="p-1.5 text-zinc-400 hover:text-blue-400 bg-black/50 hover:bg-black rounded-md transition-colors"
+                            className="p-1 text-zinc-400 hover:text-blue-400 bg-black/50 hover:bg-black rounded-md transition-colors"
                           >
-                            <Edit2 size={14} />
+                            <Edit2 size={12} />
                           </button>
                           <button
                             onClick={(e) => handleDelete(e, app.id)}
-                            className="p-1.5 text-zinc-400 hover:text-red-500 bg-black/50 hover:bg-black rounded-md transition-colors"
+                            className="p-1 text-zinc-400 hover:text-red-500 bg-black/50 hover:bg-black rounded-md transition-colors"
                           >
-                            <Trash2 size={14} />
+                            <Trash2 size={12} />
                           </button>
                         </div>
                       )}
                       
-                      <div className="mb-3 md:mb-4 pointer-events-none">
+                      <div className="mb-2 md:mb-4 pointer-events-none">
                         <AppIcon
                           src={app.icon}
                           alt={app.name}
-                          className="w-14 h-14 md:w-24 md:h-24 rounded-xl shadow-md bg-zinc-800 object-cover"
+                          className="w-10 h-10 sm:w-14 sm:h-14 md:w-24 md:h-24 rounded-xl shadow-md bg-zinc-800 object-cover"
                         />
                       </div>
 
-                      <h3 className="text-zinc-200 font-semibold text-xs md:text-base leading-tight line-clamp-2 mb-2 group-hover:text-blue-400">
+                      <h3 className="text-zinc-200 font-semibold text-[10px] sm:text-xs md:text-base leading-tight line-clamp-2 mb-2 group-hover:text-blue-400">
                         {app.name}
                       </h3>
                       
-                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] md:text-xs border font-medium mt-auto truncate max-w-full ${catData.color}`}>
+                      <span className={`inline-block px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] md:text-xs border font-medium mt-auto truncate max-w-full ${catData.color}`}>
                         {catData.label}
                       </span>
                     </div>
