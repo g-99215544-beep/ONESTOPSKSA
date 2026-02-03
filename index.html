@@ -33,21 +33,25 @@
 <body>
     <div id="root"></div>
     <script>
-      // KILL SWITCH: Remove any existing Service Workers immediately
-      if ('serviceWorker' in navigator) {
+      // Remove any existing Service Workers (one-time cleanup)
+      if ('serviceWorker' in navigator && !sessionStorage.getItem('sw_cleaned')) {
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
           if (registrations.length > 0) {
             console.log('Found ' + registrations.length + ' service workers. Unregistering...');
             let unregisterPromises = registrations.map(r => r.unregister());
-            
+
             Promise.all(unregisterPromises).then(() => {
-              console.log('All service workers unregistered. Reloading page...');
-              // Force reload from server to clear cache
+              console.log('All service workers unregistered.');
+              sessionStorage.setItem('sw_cleaned', 'true');
+              // Only reload once to apply changes
               window.location.reload();
             });
+          } else {
+            sessionStorage.setItem('sw_cleaned', 'true');
           }
         });
       }
     </script>
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
