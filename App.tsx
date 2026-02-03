@@ -401,13 +401,18 @@ function App() {
                         ${isHidden ? 'opacity-50 grayscale hover:opacity-100 hover:grayscale-0' : 'hover:border-blue-800 hover:shadow-lg hover:shadow-black/50'}
                       `}
                     >
+                      {/* Category Badge (Top Right) */}
+                      <span className={`absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] border font-medium z-5 truncate max-w-[60%] ${catData.color}`}>
+                        {catData.label}
+                      </span>
+
                       {/* Hide/Unhide Button (Top Left) */}
                       {!isAdmin && (
                         <button
                           onClick={(e) => toggleHideApp(e, app.id)}
                           className={`absolute top-1 left-1 p-1 rounded-full z-10 transition-colors
-                            ${isHidden 
-                              ? 'bg-blue-900/50 text-blue-400 hover:bg-blue-900' 
+                            ${isHidden
+                              ? 'bg-blue-900/50 text-blue-400 hover:bg-blue-900'
                               : 'text-zinc-600 hover:text-white bg-black/20 hover:bg-black opacity-0 group-hover:opacity-100'
                             }`}
                             title={isHidden ? "Papar Semula" : "Sembunyi App"}
@@ -416,24 +421,24 @@ function App() {
                         </button>
                       )}
 
-                      {/* Admin Controls (Top Right) */}
+                      {/* Admin Controls (Bottom Right) */}
                       {isAdmin && (
-                        <div className="absolute top-1 right-1 flex gap-1 z-10">
+                        <div className="absolute bottom-1 right-1 flex gap-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
                           <button
                             onClick={(e) => handleEdit(e, app)}
-                            className="p-1 text-zinc-400 hover:text-blue-400 bg-black/50 hover:bg-black rounded-md transition-colors"
+                            className="p-1 text-zinc-400 hover:text-blue-400 bg-black/80 hover:bg-black rounded-md transition-colors"
                           >
                             <Edit2 size={12} />
                           </button>
                           <button
                             onClick={(e) => handleDelete(e, app.id)}
-                            className="p-1 text-zinc-400 hover:text-red-500 bg-black/50 hover:bg-black rounded-md transition-colors"
+                            className="p-1 text-zinc-400 hover:text-red-500 bg-black/80 hover:bg-black rounded-md transition-colors"
                           >
                             <Trash2 size={12} />
                           </button>
                         </div>
                       )}
-                      
+
                       <div className="mb-2 md:mb-4 pointer-events-none">
                         <AppIcon
                           src={app.icon}
@@ -442,13 +447,9 @@ function App() {
                         />
                       </div>
 
-                      <h3 className="text-zinc-200 font-semibold text-[10px] sm:text-xs md:text-base leading-tight line-clamp-2 mb-2 group-hover:text-blue-400">
+                      <h3 className="text-zinc-200 font-semibold text-[10px] sm:text-xs md:text-base leading-tight line-clamp-2 group-hover:text-blue-400">
                         {app.name}
                       </h3>
-                      
-                      <span className={`inline-block px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] md:text-xs border font-medium mt-auto truncate max-w-full ${catData.color}`}>
-                        {catData.label}
-                      </span>
                     </div>
                   );
                 })}
