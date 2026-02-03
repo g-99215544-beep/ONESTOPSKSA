@@ -401,11 +401,6 @@ function App() {
                         ${isHidden ? 'opacity-50 grayscale hover:opacity-100 hover:grayscale-0' : 'hover:border-blue-800 hover:shadow-lg hover:shadow-black/50'}
                       `}
                     >
-                      {/* Category Badge (Top Right) - Subtle and minimal */}
-                      <span className={`absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded-full text-[7px] sm:text-[8px] font-medium z-5 truncate max-w-[55%] opacity-60 group-hover:opacity-100 transition-opacity border-0 ${catData.color}`}>
-                        {catData.label}
-                      </span>
-
                       {/* Hide/Unhide Button (Top Left) */}
                       {!isAdmin && (
                         <button
@@ -443,7 +438,7 @@ function App() {
                         <AppIcon
                           src={app.icon}
                           alt={app.name}
-                          className="w-13 h-13 sm:w-[72px] sm:h-[72px] md:w-32 md:h-32 rounded-xl shadow-md bg-zinc-800 object-cover"
+                          className="w-14 h-14 sm:w-20 sm:h-20 md:w-32 md:h-32 aspect-square rounded-xl shadow-md bg-zinc-800 object-cover"
                         />
                       </div>
 
