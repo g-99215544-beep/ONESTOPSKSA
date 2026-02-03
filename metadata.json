@@ -1,0 +1,5 @@
+{
+  "name": "School Apps Launcher",
+  "description": "A centralized dashboard for launching school applications with admin management and usage tracking.",
+  "requestFramePermissions": []
+}
